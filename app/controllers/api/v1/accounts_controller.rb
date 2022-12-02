@@ -1,21 +1,27 @@
 class Api::V1::AccountsController < ApplicationController
+  include Pundit::Authorization
   before_action :authenticate_user!
 
   # GET /accounts
   def index
     @accounts = Account.all
+    authorize @accounts
     render json: @accounts, status: :ok
   end
 
   # GET /accounts/id
   def show
     account = Account.find_by(id: params[:id])
+    authorize account
+
     render json: account.to_json
   end
 
   # POST /accounts
   def create
     @account = Account.new(account_params)
+    authorize @account
+
     if @account.save
       render json: @account, status: :created
     else
@@ -27,6 +33,8 @@ class Api::V1::AccountsController < ApplicationController
   # PUT /accounts/id
   def update
     find_account
+    authorize @account
+
     unless @account.update(account_params)
       render json: { errors: @account.errors.full_messages },
              status: :unprocessable_entity
@@ -36,6 +44,8 @@ class Api::V1::AccountsController < ApplicationController
   # DELETE /accounts/id
   def destroy
     find_account
+    authorize @account
+
     @account.destroy
   end
 
