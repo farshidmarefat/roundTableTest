@@ -60,7 +60,7 @@ class Api::V1::AccountsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def account_params
     params.permit(
-      :name, :email, :mobile, :description
+      :name, :email, :mobile, :description, :image
     )
   end
 end
