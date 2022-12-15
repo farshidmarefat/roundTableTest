@@ -52,3 +52,6 @@ end
 
 
 gem "pundit", "~> 2.2"
+group :development, :test do
+  gem 'rspec-rails'
+end
