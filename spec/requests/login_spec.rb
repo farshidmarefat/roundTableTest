@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Login requests' do
+RSpec.describe 'LoginController', :type =>  :request do
   describe 'POST /login' do
     it 'returns a login status message' do
       get('/login')
